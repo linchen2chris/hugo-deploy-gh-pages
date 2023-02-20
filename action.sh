@@ -77,9 +77,6 @@ if [[ -n "${GO_VERSION}" ]]; then
   go version
 fi
 
-# https://github.com/actions/checkout/issues/766
-git config --global --add safe.directory "${GITHUB_WORKSPACE}"
-
 ###
 # Build the site.
 ###
@@ -107,6 +104,8 @@ fi
 if ! git config --get user.email; then
     git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 fi
+
+git config --global --add safe.directory /github/workspace/public
 
 echo "Getting hash for base repository commit"
 HASH=$(echo "${GITHUB_SHA}" | cut -c1-7)
